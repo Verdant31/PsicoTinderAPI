@@ -37,19 +37,20 @@ app.post('/cpf', async (req, res) => {
             driver.findElement(By.id("cpf")).sendKeys(cpf);
             driver.findElement(By.className("btn btn-primary btn-lg text-uppercase mr-2 mr-sm-0 form-group")).click();
         },500)
-        await driver.wait(until.elementLocated(By.className('table-responsive'))).then(async ()=>{
-            const values = await driver.findElements(By.css("td"));
-            const status = await values[0].getText();
-            const name = await values[1].getText();
-            const province = await values[2].getText();
-            const registry = await values[3].getText();
-            user = {
-                status,
-                name,
-                province,
-                registry
-            }
-        });
+        
+        await driver.wait(until.elementLocated(By.className('table-responsive')));
+
+        const values = await driver.findElements(By.css("td"));
+        const status = await values[0].getText();
+        const name = await values[1].getText();
+        const province = await values[2].getText();
+        const registry = await values[3].getText();
+        user = {
+            status,
+            name,
+            province,
+            registry
+        }
         return res.status(200).json({message: "Usuario encontrado com sucesso.", user})
     } finally {
         driver.quit();
