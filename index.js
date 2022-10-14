@@ -19,9 +19,6 @@ let driver = new webdriver.Builder()
 const server = app()
 server.use(bodyParser.json())
 
-function parseProvince(province) {
-    if(province === "Pará") return 14;
-}
 
 server.get('/', (req, res) => {
     return res.send('Hello World!')
@@ -56,6 +53,6 @@ server.post('/cpf', async (req, res) => {
     }
 })
 
-server.listen(3001, () => {
+server.listen(process.env.PORT || 5000), () => {
     console.log("Server rodando")
-})
+}
