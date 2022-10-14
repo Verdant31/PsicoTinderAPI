@@ -1,6 +1,5 @@
 var app = require('express');
 var bodyParser = require('body-parser')
-var os = require('os');
 
 var webdriver = require('selenium-webdriver');
 var chrome = require('selenium-webdriver/chrome');
@@ -24,7 +23,11 @@ function parseProvince(province) {
     if(province === "Pará") return 14;
 }
 
-server.post('/', async (req, res) => {
+server.get('/', (req, res) => {
+    return res.send('Hello World!')
+})
+
+server.post('/cpf', async (req, res) => {
     const { cpf } = req.body; 
     let user = {};
     try {
