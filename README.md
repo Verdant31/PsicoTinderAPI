@@ -2,7 +2,7 @@
 This project is one of my assignments of the Mobile Development class.
 <br>
 <br>
-Its a simple API with only one functional route ("/cpf"), this route receives an CPF in the requisition body and uses Selenium Webdriver to go the the Conselho Nacional de Psicologia website 
+Its a simple API with only one functional route ("/cpf"), this route receives an CPF in the requisition body and uses Selenium Webdriver to go the the Conselho Federal de Psicologia website 
 and search the data of this psycologist, returning some infos like status, name, registry, province.
 <br>
 &nbsp;
