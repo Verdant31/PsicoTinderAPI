@@ -37,7 +37,7 @@ app.post('/cpf', async (req, res) => {
             driver.findElement(By.id("cpf")).sendKeys(cpf);
             driver.findElement(By.className("btn btn-primary btn-lg text-uppercase mr-2 mr-sm-0 form-group")).click();
         },500)
-        await driver.wait(until.elementLocated(By.className('table table-striped table-hover')),10000).then(async ()=>{
+        await driver.wait(until.elementLocated(By.className('table table-striped table-hover')), 3000).then(async ()=>{
             const values = await driver.findElements(By.css("td"));
             const status = await values[0].getText();
             const name = await values[1].getText();
