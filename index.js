@@ -1,14 +1,21 @@
 var app = require('express');
+var bodyParser = require('body-parser')
+var os = require('os');
+
 var webdriver = require('selenium-webdriver');
 var chrome = require('selenium-webdriver/chrome');
 var path = require('chromedriver').path;
-var bodyParser = require('body-parser')
-const {Builder, By, Key, until} = require('selenium-webdriver');
+const {By, until} = require('selenium-webdriver');
 
-const driver = new webdriver.Builder()
-    .withCapabilities(webdriver.Capabilities.chrome())
-    .build();
+let options = new chrome.Options();
+options.addArguments("--headless");
+options.addArguments("--disable-gpu");
+options.addArguments("--no-sandbox");
 
+let driver = new webdriver.Builder()
+  .forBrowser('chrome')
+  .setChromeOptions(options)
+  .build();
 
 const server = app()
 server.use(bodyParser.json())
@@ -41,8 +48,8 @@ server.post('/', async (req, res) => {
             }
         });
         return res.status(200).json({message: "Usuario encontrado com sucesso.", user})
-    } catch(err) {
-        return res.status(500).json({message: "Erro ao buscar usuario.", err})
+    } finally {
+        driver.quit();
     }
 })
 
