@@ -1,4 +1,4 @@
-var app = require('express');
+var express = require('express');
 var bodyParser = require('body-parser')
 
 var webdriver = require('selenium-webdriver');
@@ -11,20 +11,23 @@ options.addArguments("--headless");
 options.addArguments("--disable-gpu");
 options.addArguments("--no-sandbox");
 
-let driver = new webdriver.Builder()
-  .forBrowser('chrome')
-  .setChromeOptions(options)
-  .build();
 
-const server = app()
-server.use(bodyParser.json())
+const app = express()
+app.use(bodyParser.json())
 
+app.listen(process.env.PORT || 5000), () => {
+    console.log("App rodando")
+}
 
-server.get('/', (req, res) => {
+app.get('/', (req, res) => {
     return res.send('Hello World!')
 })
 
-server.post('/cpf', async (req, res) => {
+app.post('/cpf', async (req, res) => {
+    let driver = new webdriver.Builder()
+        .forBrowser('chrome')
+        .setChromeOptions(options)
+        .build();
     const { cpf } = req.body; 
     let user = {};
     try {
@@ -53,6 +56,4 @@ server.post('/cpf', async (req, res) => {
     }
 })
 
-server.listen(process.env.PORT || 5000), () => {
-    console.log("Server rodando")
-}
+
